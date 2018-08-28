@@ -7,31 +7,31 @@ import java.util.Date;
 @Getter
 @Setter
 public class Invoice {
-    @CsvColumnName("ID")
+
     private Long ID;
 
-    @CsvColumnName("seller")
+    @CsvColumnName("NipSprzedawcy")
     private Company seller;
 
-    @CsvColumnName("buyer")
+    @CsvColumnName("NipNabywcy")
     private Company buyer;
 
-    @CsvColumnName("invoiceDate")
+    @CsvColumnName("DataWystawienia")
     private Date invoiceDate;
 
-    @CsvColumnName("paymentDate")
+    @CsvColumnName("DataPlatnosci")
     private Date paymentDate;
 
-    @CsvColumnName("gross")
+    @CsvColumnName("Brutto")
     private Double gross;
 
-    @CsvColumnName("netto")
+    @CsvColumnName("Netto")
     private Double netto;
 
-    @CsvColumnName("vat")
+    @CsvColumnName("StawkaVat")
     private Integer vat;
 
-    @CsvColumnName("tittleNumber")
+    @CsvColumnName("NumerFaktury")
     private String titleNumber;
 
     public Invoice(Long ID, Company seller, Company buyer, Date invoiceDate, Date paymentDate, Double gross, Double netto, Integer vat, String titleNumber) {

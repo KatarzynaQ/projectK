@@ -9,9 +9,9 @@ import java.util.Date;
 @Setter
 public class BankAccount {
 
-    @CsvColumnName("tittleNumber")
+    @CsvColumnName("tytul")
     private String titleNumber;
-    @CsvColumnName("NIP")
+    @CsvColumnName("nipSprzedawcyNabywcy")
     private String NIP;
     @CsvColumnName("amount")
     private Double amount;
