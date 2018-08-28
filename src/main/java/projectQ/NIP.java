@@ -1,48 +1,39 @@
 package projectQ;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+import java.io.IOException;
 
-import java.util.ArrayList;
-import java.util.List;
-
+@Getter
+@Setter
 public class NIP {
-    private String nipNumber;
 
-    public NIP(String nipNumber) {
-        this.nipNumber=nipNumber;
-    }
+    private final static int[] WEIGHTS = {9, 5, 3, 2, 5, 3, 5, 6, 6, 3,};
+    private String nip;
 
-    private List<Integer> onlyIntegersFromString(String s){
-        List<Integer>integers=new ArrayList<Integer>();
-        String[]allChars=s.split("");
-        for (String x:allChars
-             ) {
-            if(isANumber(x)){
-                integers.add(Integer.valueOf(x));
-            }
-        }
-        return integers;
+    NIP(final String nip) throws IOException {
+        this.nip = normalise(nip);
     }
 
-    private boolean isANumber(String s){
-        Integer number;
-        number=Integer.valueOf(s);
-        if(number!=null){
-            return true;
-        } else return false;
-    }
-    private String createNIPFromIntegerList(List<Integer>integers){
-        String[] Nip=new String[12];
-        for (int i = 0; i < 12; i++) {
-            if(i==3||i==7||i==10){
-                Nip[i]="-";
-            }else{
-                Nip[i]=String.valueOf(integers.get(i));
-            }
+    private String normalise(final String nip) throws IOException {
+        String nipTrim = nip.trim().replace(" ", "").replace("-", "");
+        if (!nipTrim.matches("\\d(10)$")) {
+            throw new IOException("Invalid NIP content");
+//        throw new InvalidNipNumber("Invalid NIP content");
         }
-        String toReturnNip="";
-        for (int i = 0; i < Nip.length; i++) {
-            toReturnNip=toReturnNip+Nip[i];
-            System.out.println(toReturnNip);
+        Integer sum = 0;
+        for (int i = 0; i < nipTrim.length() - 1; i++) {
+            sum += Integer.valueOf("" + nipTrim.charAt(i)) * WEIGHTS[i];
         }
-        return toReturnNip;
+
+        Integer control = sum % 11;
+        if (control != Integer.valueOf("" + nipTrim.charAt(9))) {
+            throw new IOException("Invalid Nip checksum");
+//            throw new InvalidNipNumber("Invalid Nip checksum");
+        }
+
+        return nipTrim.replaceAll("(\\d{3})(\\d{3})(\\d{2})(\\d{2})$", "$1-$2-$3-$4");
     }
+
 }
+
