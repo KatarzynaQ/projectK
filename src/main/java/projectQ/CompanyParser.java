@@ -9,6 +9,7 @@ public class CompanyParser {
     public List<Company> readCompanies(String path){
         FileReader fr=null;
         BufferedReader br=null;
+        String line;
 
     }
 }
