@@ -1,6 +1,9 @@
 package projectQ;
 
-public class OperationType {
+public enum OperationType {
+    IN,
+    OUT,
+    BALANCE;
 
 
 }
