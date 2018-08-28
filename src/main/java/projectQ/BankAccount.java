@@ -16,15 +16,18 @@ public class BankAccount {
     @CsvColumnName("amount")
     private Double amount;
     @CsvColumnName("data")
-    private Data data;
+    private Date data;
     @CsvColumnName("operationType")
     private OperationType operationType;
 
-    public BankAccount(String titleNumber, String NIP, Double amount, Data data, OperationType operationType) {
+    public BankAccount(String titleNumber, String NIP, Double amount, Date data, OperationType operationType) {
         this.titleNumber = titleNumber;
         this.NIP = NIP;
         this.amount = amount;
         this.data = data;
         this.operationType = operationType;
+    }
+
+    public BankAccount() {
     }
 }
