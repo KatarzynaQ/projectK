@@ -22,18 +22,20 @@ public class BankAccountParserTest {
 
 
 
-        String path = "C:\\workspace\\account.csv";
+        String path = "D:\\workspace\\projectK\\account.csv";
         BankAccountParser j = new BankAccountParser();
 
         try {
             List <BankAccount> bList = new ArrayList <>();
             bList = j.readBankPayment(path);
+            bList.get(0);
             System.out.println(bList);
+            Assert.assertEquals(i,bList.get(0));
         } catch (
                 ParseException e) {
             e.printStackTrace();
         }
 
-        Assert.assertEquals(i,j);
+//        Assert.assertEquals(i,bList.get(0));
     }
 }
