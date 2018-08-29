@@ -32,13 +32,13 @@ public class CompanyParser {
                 String[] data = line.split(";");
                 c.setName(data[0]);
                 c.setNip(new NIP(data[1]));
+                companies.add(c);
+                return companies;
+            }
 
-                return c;
-        }
-
-    }
-    catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
+        }
+        return companies;
     }
-}
 }
