@@ -31,25 +31,14 @@ public class CompanyParser {
                 Company c = new Company();
                 String[] data = line.split(";");
                 c.setName(data[0]);
-                c.setNip(data[1]);
-                if (!data[2].equals("")) {
-                    b.setAmount(Double.valueOf(data[2]));
-                    b.setOperationType(OperationType.OUT);
-                } else {
-                    b.setAmount(Double.valueOf(data[3]));
-                    b.setOperationType(OperationType.IN);
-                }
-                DateFormat df = new SimpleDateFormat("dd-mm-yyyy", Locale.ENGLISH);
-                Date dt = df.parse(data[4]);
-                b.setData(dt);
-                bankAccounts.add(b);
-            }
+                c.setNip(new NIP(data[1]));
 
-
-        } catch (IOException e) {
-            e.printStackTrace();
+                return c;
         }
-        return bankAccounts;
+
+    }
+    catch (IOException e){
+            e.printStackTrace();
     }
 }
 }

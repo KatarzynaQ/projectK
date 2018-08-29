@@ -41,9 +41,7 @@ public class BankAccountParser {
                     b.setAmount(Double.valueOf(data[3]));
                     b.setOperationType(OperationType.IN);
                 }
-                DateFormat df = new SimpleDateFormat("dd-mm-yyyy", Locale.ENGLISH);
-                Date dt = df.parse(data[4]);
-                b.setData(dt);
+                b.setData(b.parsingDateFromString(data[4]));
                 bankAccounts.add(b);
             }
 

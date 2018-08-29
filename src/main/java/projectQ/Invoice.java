@@ -3,7 +3,12 @@ package projectQ;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
+
 @Getter
 @Setter
 public class Invoice {
@@ -47,5 +52,11 @@ public class Invoice {
     }
 
     public Invoice() {
+    }
+
+    public Date parsingDateFromString(String s) throws ParseException {
+        DateFormat df = new SimpleDateFormat("dd-mm-yyyy", Locale.ENGLISH);
+        Date dt = df.parse(s);
+        return dt;
     }
 }
