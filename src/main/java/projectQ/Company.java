@@ -16,6 +16,9 @@ public class Company {
         this.name = name;
         this.nip = nip;
     }
+
+    public Company() {
+    }
 }
 
 
