@@ -17,7 +17,7 @@ public class BankAccount {
     @CsvColumnName("tytul")
     private String titleNumber;
     @CsvColumnName("nipSprzedawcyNabywcy")
-    private String NIP;
+    private NIP NIP;
     @CsvColumnName("amount")
     private Double amount;
     @CsvColumnName("data")
@@ -25,7 +25,7 @@ public class BankAccount {
     @CsvColumnName("operationType")
     private OperationType operationType;
 
-    public BankAccount(String titleNumber, String NIP, Double amount, Date data, OperationType operationType) {
+    public BankAccount(String titleNumber, NIP NIP, Double amount, Date data, OperationType operationType) {
         this.titleNumber = titleNumber;
         this.NIP = NIP;
         this.amount = amount;
