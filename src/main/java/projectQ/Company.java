@@ -10,9 +10,9 @@ public class Company {
     @CsvColumnName("name")
     private String name;
     @CsvColumnName("nip")
-    private NIP nip;
+    private String nip;
 
-    public Company(String name, NIP nip) {
+    public Company(String name, String nip) {
         this.name = name;
         this.nip = nip;
     }
