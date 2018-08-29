@@ -33,7 +33,7 @@ public class BankAccountParser {
                 BankAccount b = new BankAccount();
                 String[] data = line.split(";");
                 b.setTitleNumber(data[0]);
-                b.setNIP(new NIP(data[1]));
+                b.setNIP(data[1]);
                 if (!data[2].equals("")) {
                     b.setAmount(Double.valueOf(data[2]));
                     b.setOperationType(OperationType.OUT);

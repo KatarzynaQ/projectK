@@ -31,7 +31,7 @@ public class CompanyParser {
                 Company c = new Company();
                 String[] data = line.split(";");
                 c.setName(data[0]);
-                c.setNip(new NIP(data[1]));
+                c.setNip(data[1]);
                 companies.add(c);
                 return companies;
             }

@@ -8,6 +8,8 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.Assert.assertEquals;
+
 public class BankAccountParserTest {
 
     @Test
@@ -17,13 +19,13 @@ public class BankAccountParserTest {
 
         i.setData(i.parsingDateFromString("01-09-2018"));
         i.setAmount(3.69);
-        i.setNIP(new NIP("5621807397"));
+        i.setNIP("5621807397");
         i.setOperationType(OperationType.IN);
         i.setTitleNumber("FS/1/2018");
 
 
 
-        String path = "c\\workspace\\account.csv";
+        String path = "C:\\workspace\\account.csv";
         BankAccountParser j = new BankAccountParser();
 
         try {
@@ -31,12 +33,15 @@ public class BankAccountParserTest {
             bList = j.readBankPayment(path);
             bList.get(0);
             System.out.println(bList);
-            Assert.assertEquals(i,bList.get(0));
+            assertEquals(i.getAmount(),(bList.get(0).getAmount()));
+            assertEquals(i.getData(),(bList.get(0)).getData());
+            assertEquals(i.getNIP(),(bList.get(0)).getNIP());
+            assertEquals(i.getTitleNumber(),(bList.get(0)).getTitleNumber());
         } catch (
                 ParseException e) {
             e.printStackTrace();
         }
 
-//        Assert.assertEquals(i,bList.get(0));
+
     }
 }
