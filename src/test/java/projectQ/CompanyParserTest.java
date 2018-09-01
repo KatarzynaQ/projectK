@@ -12,10 +12,14 @@ public class CompanyParserTest {
 
     @Test
     public void CompanyParserTest() throws IOException {
-        String path = "C:\\workspace\\projectQ\\companys.csv";
+        String path = "C:\\workspace\\companys.csv";
         CompanyParser cp=new CompanyParser();
         Company company = new Company();
-        company.setNip("9532535663");
+        try {
+            company.setNip(new NIP("9532535663"));
+        } catch (InvalidNipNumber invalidNipNumber) {
+            invalidNipNumber.printStackTrace();
+        }
         company.setName("ABC1");
         List<Company> list=new ArrayList<>();
         list=cp.readCompanies(path);

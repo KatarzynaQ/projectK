@@ -8,18 +8,18 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Objects;
 
 @Getter
 @Setter
 public class Invoice {
 
-    private Long ID;
 
     @CsvColumnName("NipSprzedawcy")
-    private Company seller;
+    private NIP seller;
 
     @CsvColumnName("NipNabywcy")
-    private Company buyer;
+    private NIP buyer;
 
     @CsvColumnName("DataWystawienia")
     private Date invoiceDate;
@@ -39,8 +39,7 @@ public class Invoice {
     @CsvColumnName("NumerFaktury")
     private String titleNumber;
 
-    public Invoice(Long ID, Company seller, Company buyer, Date invoiceDate, Date paymentDate, Double gross, Double netto, Integer vat, String titleNumber) {
-        this.ID = ID;
+    public Invoice(NIP seller, NIP buyer, Date invoiceDate, Date paymentDate, Double gross, Double netto, Integer vat, String titleNumber) {
         this.seller = seller;
         this.buyer = buyer;
         this.invoiceDate = invoiceDate;
@@ -58,5 +57,35 @@ public class Invoice {
         DateFormat df = new SimpleDateFormat("dd-mm-yyyy", Locale.ENGLISH);
         Date dt = df.parse(s);
         return dt;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Invoice)) return false;
+        Invoice invoice = (Invoice) o;
+        return Objects.equals(this.seller, invoice.seller) &&
+                Objects.equals(this.buyer, invoice.buyer) &&
+                Objects.equals(this.invoiceDate, invoice.invoiceDate) &&
+                Objects.equals(this.paymentDate, invoice.paymentDate) &&
+                Objects.equals(this.gross, invoice.gross) &&
+                Objects.equals(this.netto, invoice.netto) &&
+                Objects.equals(this.vat, invoice.vat) &&
+                Objects.equals(this.titleNumber, invoice.titleNumber);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(seller, buyer, invoiceDate, paymentDate, gross, netto, vat, titleNumber);
+    }
+
+
+    public int compareTo(Invoice o) {
+        if (this.getNetto() < o.getNetto()) {
+            return -1;
+        } else if (this.getNetto() == o.getNetto()) {
+            return 0;
+        } else return 1;
     }
 }

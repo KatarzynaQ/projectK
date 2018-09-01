@@ -3,7 +3,10 @@ package projectQ;
 import java.io.*;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
+import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class InvoiceParser {
@@ -21,34 +24,49 @@ public class InvoiceParser {
 //        }
 //    }
 
-    public Invoice readInvoice(String invoicePath) throws IOException {
-        Invoice invoiceRead = new Invoice();
+    public static List<Invoice> readInvoice(String invoicePath) throws IOException, ParseException {
+        FileReader fr = null;
         BufferedReader br = null;
-        FileReader fReader = null;
-        Map<Integer, String> headerLine = new HashMap<>();
+        String line;
+        List<Invoice> invoices = new ArrayList<>();
 
         try {
-            br = new BufferedReader(fReader);
-            fReader = new FileReader(invoicePath);
+            fr = new FileReader(invoicePath);
+            br = new BufferedReader(fr);
             boolean firstLine = true;
-            String line;
-
             while ((line = br.readLine()) != null) {
-                Map<String, String> columnData = new HashMap<>();
                 if (firstLine) {
                     firstLine = false;
-                    String[] data = line.split(";");
-
-                    for (int i = 0; i < data.length; i++) {
-                        headerLine.put(i, data[i]);
-                    }
-                } else {
-//                    columnData.put()
+                    continue;
                 }
+                Invoice i = new Invoice();
+                String[] data = line.split(";");
+                i.setTitleNumber(data[0]);
+                try {
+                    i.setSeller(new NIP(data[1]));
+                } catch (InvalidNipNumber invalidNipNumber) {
+                    invalidNipNumber.printStackTrace();
+                }
+                try {
+                    i.setBuyer(new NIP(data[2]));
+                } catch (InvalidNipNumber invalidNipNumber) {
+                    invalidNipNumber.printStackTrace();
+                }
+                i.setInvoiceDate(i.parsingDateFromString(data[3]));
+                i.setPaymentDate(i.parsingDateFromString(data[4]));
+                i.setGross(Double.valueOf(data[5]));
+                i.setNetto(Double.valueOf(data[6]));
+                i.setVat(Integer.valueOf(data[7]));
+                invoices.add(i);
+
+
             }
-        } catch (FileNotFoundException e) {
+            return invoices;
+        } catch (IOException e) {
             e.printStackTrace();
         }
-return null;
+        return invoices;
     }
+
+
 }

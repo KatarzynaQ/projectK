@@ -13,7 +13,7 @@ import java.util.Locale;
 
 public class CompanyParser {
 
-    public List<Company> readCompanies(String path) {
+    public static List<Company> readCompanies(String path) {
         FileReader fr = null;
         BufferedReader br = null;
         String line;
@@ -31,7 +31,11 @@ public class CompanyParser {
                 Company c = new Company();
                 String[] data = line.split(";");
                 c.setName(data[0]);
-                c.setNip(data[1]);
+                try {
+                    c.setNip(new NIP(data[1]));
+                } catch (InvalidNipNumber invalidNipNumber) {
+                    invalidNipNumber.printStackTrace();
+                }
                 companies.add(c);
                 return companies;
             }

@@ -14,7 +14,7 @@ import java.util.Locale;
 
 public class BankAccountParser {
 
-    public List<BankAccount> readBankPayment(String path) throws ParseException {
+    public static List<BankAccount> readBankPayment(String path) throws ParseException {
         BufferedReader br = null;
         FileReader fr = null;
         List<BankAccount> bankAccounts = new ArrayList<>();
