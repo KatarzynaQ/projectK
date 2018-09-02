@@ -3,9 +3,7 @@ package projectQ;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Setter
 @Getter
@@ -37,16 +35,36 @@ public class Model {
         return null;
     }
 
-    public List<Company> myCommitment() {
-    //   List<Invoice> c= onlyCommitments(myInvoices);
-  return null;
+    public List<NIP> topFiveProviders() {
+        List<Invoice> c = onlyProviders(myInvoices);
+        Collections.sort(c,Collections.reverseOrder());
+        List<NIP> companiesToReturn = new ArrayList<>();
+        if (c.size() < 5) {
+            for (Invoice current : c
+                    ) {
+                companiesToReturn.add(current.getSeller());
+            }
+            return companiesToReturn;
+        } else {
+            for (int i = 0; i < 5; i++) {
+                companiesToReturn.add((c.get(i)).getSeller());
+            }
+            return companiesToReturn;
+        }
     }
-
-    public List<Company> fiveProviders() {
+    public void topFiveProvidersToString(){
+        List<NIP>toPrint= topFiveProviders();
+        System.out.println("TOP 5 dostawców: ");
+        for (NIP nip:toPrint) {
+            System.out.print(nip.toString()+ " ");
+        }
+        System.out.println(" ");
+    }
+    public List<Company> fiveCommitments() {
         return null;
     }
 
-    public List<Company> fiveContractors() {
+    public List<Company> myCommitments() {
         return null;
     }
 
@@ -91,15 +109,15 @@ public class Model {
     * this method returns list of invoices
      * which are only commitments from all invoices
     * */
-    private List<Invoice>onlyCommitments(List<Invoice>invoicesToFiltr){
-        List<Invoice>commitments=new ArrayList<>();
+    private List<Invoice> onlyProviders(List<Invoice>invoicesToFiltr){
+        List<Invoice>providers=new ArrayList<>();
         for (Invoice current: myInvoices
                 ) {
             if(!current.getSeller().equals(myNip)){
 
-                commitments.add(current);
+                providers.add(current);
             }
         }
-        return commitments;
+        return providers;
     }
 }

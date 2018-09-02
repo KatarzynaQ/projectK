@@ -12,7 +12,7 @@ import java.util.Objects;
 
 @Getter
 @Setter
-public class Invoice {
+public class Invoice implements Comparable<Invoice> {
 
 
     @CsvColumnName("NipSprzedawcy")
@@ -54,7 +54,7 @@ public class Invoice {
     }
 
     public Date parsingDateFromString(String s) throws ParseException {
-        DateFormat df = new SimpleDateFormat("dd-mm-yyyy", Locale.ENGLISH);
+        DateFormat df = new SimpleDateFormat("dd-mm-yyyy");
         Date dt = df.parse(s);
         return dt;
     }
@@ -81,11 +81,12 @@ public class Invoice {
     }
 
 
+
+    @Override
     public int compareTo(Invoice o) {
-        if (this.getNetto() < o.getNetto()) {
-            return -1;
-        } else if (this.getNetto() == o.getNetto()) {
+        if (getNetto() == null || o.getNetto() == null) {
             return 0;
-        } else return 1;
+        }
+        return getNetto().compareTo(o.getNetto());
     }
 }

@@ -21,7 +21,7 @@ public class InvoiceParserTest {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        assertEquals(3, invoices.size());
+        assertEquals(18, invoices.size());
     }
 
     @Test
@@ -51,7 +51,7 @@ public class InvoiceParserTest {
 
         // assertEquals(true,(SUT.equals(invoices.get(0))));
 
-        assertEquals(3, invoices.size());
+        assertEquals(18, invoices.size());
 
         assertEquals(SUT.getBuyer().toString(), (invoices.get(0)).getBuyer().toString());
         assertEquals(SUT.getSeller().toString(), (invoices.get(0)).getSeller().toString());
@@ -91,7 +91,7 @@ public class InvoiceParserTest {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        assertEquals(new Integer(3), new Integer(invoices.size()));
+        assertEquals(new Integer(18), new Integer(invoices.size()));
 
         assertEquals(SUT.getBuyer().toString(), (invoices.get(1)).getBuyer().toString());
         assertEquals(SUT.getSeller().toString(), (invoices.get(1)).getSeller().toString());
@@ -131,7 +131,7 @@ public class InvoiceParserTest {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        assertEquals(new Integer(3), new Integer(invoices.size()));
+        assertEquals(new Integer(18), new Integer(invoices.size()));
         assertEquals(SUT.getBuyer().toString(), (invoices.get(2)).getBuyer().toString());
         assertEquals(SUT.getSeller().toString(), (invoices.get(2)).getSeller().toString());
         assertEquals(SUT.getGross(), (invoices.get(2)).getGross());
