@@ -40,12 +40,14 @@ public class NIP {
         if (!(o instanceof NIP)) return false;
         NIP nip1 = (NIP) o;
         return Objects.equals(nip, nip1.nip);
+
     }
 
     @Override
     public int hashCode() {
 
         return Objects.hash(nip);
+
     }
 }
 //public class NIP {
