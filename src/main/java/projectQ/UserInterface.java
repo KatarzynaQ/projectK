@@ -62,13 +62,13 @@ public class UserInterface {
                     modelBuilder().delayPayment();
                     break;
                 case ("2"):
-                    modelBuilder().myCommitments();
+                    modelBuilder().myCommitmentsToString();
                     break;
                 case ("3"):
                     modelBuilder().topFiveProvidersToString();
                     break;
                 case ("4"):
-                    modelBuilder().fiveCommitments();
+                    modelBuilder().fiveContractors();
                     break;
                 case ("5"):
                     modelBuilder().accountBalance();

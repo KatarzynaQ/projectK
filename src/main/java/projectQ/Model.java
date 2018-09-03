@@ -35,9 +35,27 @@ public class Model {
         return null;
     }
 
+    public Map<NIP,Double> myCommitments() {
+        List<Invoice>invoicesUnPaid=onlyUnPaid(myInvoices,bap);
+        Map<NIP, Double>myCommitmentsWithValues=new HashMap<>();
+        for (Invoice current:invoicesUnPaid) {
+        //    Double sumOfCommitments=0.0;
+            myCommitmentsWithValues.put(current.getSeller(),current.getNetto());
+        }
+        return myCommitmentsWithValues;
+    }
+    public void myCommitmentsToString(){
+        Map<NIP,Double>commitments=myCommitments();
+        System.out.println("Moje zobowiązania");
+        for (int i = 0; i < commitments.size(); i++) {
+
+        }
+        System.out.println(" ");
+    }
+
     public List<NIP> topFiveProviders() {
         List<Invoice> c = onlyProviders(myInvoices);
-        Collections.sort(c,Collections.reverseOrder());
+        Collections.sort(c, Collections.reverseOrder());
         List<NIP> companiesToReturn = new ArrayList<>();
         if (c.size() < 5) {
             for (Invoice current : c
@@ -52,21 +70,20 @@ public class Model {
             return companiesToReturn;
         }
     }
-    public void topFiveProvidersToString(){
-        List<NIP>toPrint= topFiveProviders();
+
+    public void topFiveProvidersToString() {
+        List<NIP> toPrint = topFiveProviders();
         System.out.println("TOP 5 dostawców: ");
-        for (NIP nip:toPrint) {
-            System.out.print(nip.toString()+ " ");
+        for (NIP nip : toPrint) {
+            System.out.print(nip.toString() + " ");
         }
         System.out.println(" ");
     }
-    public List<Company> fiveCommitments() {
+
+    public List<Company> fiveContractors() {
         return null;
     }
 
-    public List<Company> myCommitments() {
-        return null;
-    }
 
     public Double accountBalance() {
         return null;
@@ -106,18 +123,45 @@ public class Model {
 
 
     /*
-    * this method returns list of invoices
+     * this method returns list of invoices
      * which are only commitments from all invoices
-    * */
-    private List<Invoice> onlyProviders(List<Invoice>invoicesToFiltr){
-        List<Invoice>providers=new ArrayList<>();
-        for (Invoice current: myInvoices
+     * */
+    private List<Invoice> onlyProviders(List<Invoice> invoicesToFiltr) {
+        List<Invoice> providers = new ArrayList<>();
+        for (Invoice current : myInvoices
                 ) {
-            if(!current.getSeller().equals(myNip)){
+            if (!current.getSeller().equals(myNip)) {
 
                 providers.add(current);
             }
         }
         return providers;
+    }
+
+    private List<Invoice> onlyUnPaid(List<Invoice> invoicesToCheck, List<BankAccount> listOfPayments) {
+        if (invoicesToCheck == null) {
+            return null;
+        } else if (listOfPayments == null) {
+            return invoicesToCheck;
+        } else {
+            List<Invoice> invoicesUnPaid = new ArrayList<>();
+            for (Invoice current : invoicesToCheck) {
+                String tittleOfInvoice = current.getTitleNumber();
+                if (!isThisTittleOfPaymentInPayments(tittleOfInvoice, listOfPayments)) {
+                    invoicesUnPaid.add(current);
+                }
+            }
+            return invoicesUnPaid;
+        }
+    }
+
+    private boolean isThisTittleOfPaymentInPayments(String tittle, List<BankAccount> allPayments) {
+        for (BankAccount current : allPayments) {
+            if (current.getTitleNumber().equals(tittle)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
