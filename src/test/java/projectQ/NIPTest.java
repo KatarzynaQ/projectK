@@ -4,9 +4,12 @@ import org.junit.Test;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+
+
 import java.io.IOException;
 
 import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class NIPTest {
     @Test(expected = InvalidNipNumber.class)
@@ -16,7 +19,7 @@ public class NIPTest {
 
     }
 
-    @Test(expected = InvalidNipNumber.class)
+    @org.junit.Test(expected = InvalidNipNumber.class)
     public void nipLengthToLong() throws IOException, InvalidNipNumber {
 
             new NIP("12345678901");

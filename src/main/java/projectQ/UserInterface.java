@@ -1,5 +1,7 @@
 package projectQ;
 
+import projectQ.service.Model;
+
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.List;
@@ -15,22 +17,21 @@ public class UserInterface {
     public Model modelBuilder() {
         try {
             myInvoices = InvoiceParser.readInvoice("C:\\workspace\\invoices.csv");
+            myPayments = BankAccountParser.readBankPayment("C:\\workspace\\account.csv");
+            myCompanies = CompanyParser.readCompanies("C:\\workspace\\companys.csv");
+            try {
+                myNip = new NIP("953-253-56-63");
+            } catch (InvalidNipNumber invalidNipNumber) {
+                invalidNipNumber.printStackTrace();
+            }
+
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        try {
-            myPayments = BankAccountParser.readBankPayment("C:\\workspace\\account.csv");
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        myCompanies = CompanyParser.readCompanies("C:\\workspace\\companys.csv");
-        try {
-            myNip = new NIP("953-253-56-63");
-        } catch (InvalidNipNumber invalidNipNumber) {
-            invalidNipNumber.printStackTrace();
-        }
+
+
         Model model = new Model(myInvoices, myCompanies, myPayments, myNip);
         return model;
     }
@@ -71,7 +72,7 @@ public class UserInterface {
                     modelBuilder().fiveContractors();
                     break;
                 case ("5"):
-                    modelBuilder().accountBalance();
+                    System.out.println(modelBuilder().accountBalance());
                     break;
                 case ("6"):
                     modelBuilder().balancePerProvider();

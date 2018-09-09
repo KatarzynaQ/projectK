@@ -1,9 +1,9 @@
 package projectQ;
 
 import org.junit.Test;
+import projectQ.service.Model;
 
 
-import javax.jws.soap.SOAPBinding;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;

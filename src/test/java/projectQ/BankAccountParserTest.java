@@ -13,13 +13,13 @@ import static org.junit.Assert.assertEquals;
 public class BankAccountParserTest {
 
     @Test
-    public void readBankPaymentTest() throws ParseException, IOException {
+    public void readBankPaymentTest() throws ParseException, IOException, InvalidNipNumber {
 
         BankAccount i = new BankAccount();
 
         i.setData(i.parsingDateFromString("01-09-2018"));
         i.setAmount(3.69);
-        i.setNIP("5621807397");
+        i.setNIP(new NIP("5621807397"));
         i.setOperationType(OperationType.IN);
         i.setTitleNumber("FS/1/2018");
 

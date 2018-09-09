@@ -1,6 +1,7 @@
 package projectQ;
 
 import org.junit.Test;
+import projectQ.service.Model;
 
 import java.util.List;
 
