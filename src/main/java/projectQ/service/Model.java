@@ -19,21 +19,11 @@ public class Model {
     public NIP myNip;
 
     public Model(List<Invoice> myInvoices, List<Company> cp, List<BankAccount> bap, NIP nip) {
-        //this.pathAccount = pathAccount;
-        // this.pathCompany = pathCompany;
-        // this.pathInvoice = pathInvoice;
-
         this.myInvoices = myInvoices;
         this.myCompanies = cp;
         this.bap = bap;
         this.today = new Date();
         this.myNip = nip;
-
-
-    }
-
-    public List<Company> delayPayment() {
-        return null;
     }
 
     public Map<NIP,Double> myCommitments() {
@@ -76,49 +66,9 @@ public class Model {
         System.out.println(" ");
     }
 
-    public List<NIP> topFiveProviders() {
-        List<Invoice> c = onlyProviders(myInvoices);
-        Collections.sort(c, Collections.reverseOrder());
-        List<NIP> companiesToReturn = new ArrayList<>();
-        if (c.size() < 5) {
-            for (Invoice current : c
-                    ) {
-                companiesToReturn.add(current.getSeller());
-            }
-            return companiesToReturn;
-        } else {
-            for (int i = 0; i < 5; i++) {
-                companiesToReturn.add((c.get(i)).getSeller());
-            }
-            return companiesToReturn;
-        }
-    }
-
-    public void topFiveProvidersToString() {
-        List<NIP> toPrint = topFiveProviders();
-        System.out.println("TOP 5 dostawców: ");
-        for (NIP nip : toPrint) {
-            System.out.print(nip.toString() + " ");
-        }
-        System.out.println(" ");
-    }
-
-    public List<Company> fiveContractors() {
-        return null;
-    }
 
 
-    public Double accountBalance() {
-        Double balance=0.0;
-        for (BankAccount payment:bap) {
-            if(payment.getOperationType().equals(OperationType.IN)){
-                balance+=payment.getAmount();
-            }else if(payment.getOperationType().equals(OperationType.OUT)){
-                balance-=payment.getAmount();
-            }
-        }
-        return balance;
-    }
+
 
     public Double balancePerProvider() {
         return null;
@@ -157,17 +107,7 @@ public class Model {
      * this method returns list of invoices
      * which are only commitments from all invoices
      * */
-    private List<Invoice> onlyProviders(List<Invoice> invoicesToFiltr) {
-        List<Invoice> providers = new ArrayList<>();
-        for (Invoice current : myInvoices
-                ) {
-            if (!current.getSeller().equals(myNip)) {
 
-                providers.add(current);
-            }
-        }
-        return providers;
-    }
 
     public List<Invoice> onlyUnPaid(List<Invoice> invoicesToCheck, List<BankAccount> listOfPayments) {
         if (invoicesToCheck == null) {

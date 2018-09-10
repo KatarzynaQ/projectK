@@ -1,6 +1,9 @@
 package projectQ;
 
+import projectQ.service.AccountCounter;
+import projectQ.service.InvoicesCounter;
 import projectQ.service.Model;
+import projectQ.service.TimeCounter;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -14,6 +17,18 @@ public class UserInterface {
     List<Company> myCompanies;
     NIP myNip;
 
+
+
+    public AccountCounter acBuilder(){
+        try {
+            AccountCounter ac=new AccountCounter(BankAccountParser.readBankPayment("C:\\workspace\\account.csv"));
+            return ac;
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+    }
     public Model modelBuilder() {
         try {
             myInvoices = InvoiceParser.readInvoice("C:\\workspace\\invoices.csv");
@@ -34,6 +49,21 @@ public class UserInterface {
 
         Model model = new Model(myInvoices, myCompanies, myPayments, myNip);
         return model;
+    }
+    public TimeCounter tcBuilder(){
+        return new TimeCounter();
+    }
+    public InvoicesCounter icBuilder(){
+        try {
+            InvoicesCounter ic=new InvoicesCounter(InvoiceParser.readInvoice("C:\\workspace\\invoices.csv"),myNip);
+            return ic;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     /*
@@ -60,19 +90,19 @@ public class UserInterface {
             String chosing = scanner.next();
             switch (chosing) {
                 case ("1"):
-                    modelBuilder().delayPayment();
+                    tcBuilder().delayPayment();
                     break;
                 case ("2"):
                     modelBuilder().myCommitmentsToString();
                     break;
                 case ("3"):
-                    modelBuilder().topFiveProvidersToString();
+                    icBuilder().companiesToReturn();
                     break;
                 case ("4"):
-                    modelBuilder().fiveContractors();
+                    icBuilder().fiveContractors();
                     break;
                 case ("5"):
-                    System.out.println(modelBuilder().accountBalance());
+                    System.out.println(acBuilder().accountBalance());
                     break;
                 case ("6"):
                     modelBuilder().balancePerProvider();

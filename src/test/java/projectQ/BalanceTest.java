@@ -1,6 +1,7 @@
 package projectQ;
 
 import org.junit.Test;
+import projectQ.service.AccountCounter;
 import projectQ.service.Model;
 
 import java.util.ArrayList;
@@ -10,9 +11,7 @@ import static org.junit.Assert.assertEquals;
 
 public class BalanceTest {
     private List<BankAccount>account;
-    private List<Invoice>invoices;
-    private List<Company>companies;
-    private Model modelTest;
+
     private NIP myNIP;
 
     @Test
@@ -40,9 +39,8 @@ public class BalanceTest {
         account.add(b3);
         account.add(b4);
         account.add(b5);
+        AccountCounter SUT=new AccountCounter(account);
 
-
-        modelTest=new Model(invoices,companies,account,myNIP);
-        assertEquals(1000.0,modelTest.accountBalance(),0.0000007);
+        assertEquals(1000.0,SUT.accountBalance(),0.0000007);
     }
 }
